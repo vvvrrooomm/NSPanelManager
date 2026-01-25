@@ -18,7 +18,7 @@
 #include <gtest/gtest.h>
 #endif
 
-#define PREPEND_HMI_LOCATION(file) "/usr/src/app/nspanelmanager" file
+#define PREPEND_HMI_LOCATION(file) "/web" file
 
 enum LightTurnOnBehaviour {
   COLOR_TEMPERATURE,

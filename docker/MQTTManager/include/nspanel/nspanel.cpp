@@ -478,6 +478,7 @@ void NSPanel::send_config() {
   }
 
   SPDLOG_DEBUG("Sending updated NSPanelConfig to panel {}::{} over MQTT.", this->_id, this->_name);
+  SPDLOG_DEBUG(config.DebugString());
   MQTT_Manager::publish_protobuf(this->_mqtt_config_topic, config, true);
 }
 
@@ -613,7 +614,8 @@ void NSPanel::mqtt_callback(std::string topic, std::string payload) {
         MQTT_Manager::clear_retain(fmt::format("nspanel/{}/command", this->_name));
         MQTT_Manager::clear_retain(fmt::format("nspanel/{}", this->_name));
 
-        SPDLOG_DEBUG("Got new status report from NSPanel {}::{}", this->_id, this->_name);
+        SPDLOG_DEBUG("Got new status report from NSPanel {}::{}\nip:{}, rssi:{}, heap:{}, temp:{}, vers:{}, fwmd5:{}, fsmd5:{}, tftmd5:{}", this->_id, this->_name,
+        report.ip_address(), report.rssi(), report.heap_used_pct(), report.temperature(), report.version(), report.md5_firmware(), report.md5_littlefs(), report.md5_tft_gui());
         this->_ip_address = report.ip_address();
         this->_rssi = report.rssi();
         this->_heap_used_pct = report.heap_used_pct();

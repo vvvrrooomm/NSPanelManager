@@ -18,7 +18,7 @@ RUN if [ "$IS_DEVEL" != "yes" ]; then conan profile detect --force && echo 'core
     && sed -i "s|cppstd=gnu14|cppstd=gnu23|g" /root/.conan2/profiles/default \
     && sed -i "s|build_type=Release|build_type=Debug|g" /root/.conan2/profiles/default; fi
 
-RUN if [ -z "$no_mqttmanager_build" ]; then /bin/bash /MQTTManager/compile_mqttmanager.sh --target-platform "$TARGETPLATFORM" --strip; else echo "Not building MQTTManager."; fi
+RUN if [ -z "$no_mqttmanager_build" ]; then /bin/bash /MQTTManager/compile_mqttmanager.sh --target-platform "$TARGETPLATFORM"; else echo "Not building MQTTManager."; fi
 
 FROM python:3.12.5-bookworm
 ARG no_mqttmanager_build
